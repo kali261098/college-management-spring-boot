@@ -12,4 +12,5 @@ public interface AdmissionRepo  extends JpaRepository<AdmissionDetail,Integer> {
     //select all from admission detail table ;
     List<AdmissionDetail> findAll();
     AdmissionDetail findByEmail(String email);
+    List<AdmissionDetail> findByIsapprove(Boolean approve);
 }

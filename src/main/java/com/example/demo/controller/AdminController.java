@@ -34,6 +34,11 @@ public class AdminController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping("/viewTeacher")
+    public ResponseEntity<List<AddTeacherRequest>> viewTeacher() {
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 
     }

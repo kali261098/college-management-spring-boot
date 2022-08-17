@@ -25,6 +25,7 @@ public class DemoApplication {
                 registry.addMapping("/user").allowedOrigins("http://localhost:8080");
                 registry.addMapping("/viewStudent").allowedOrigins("http://localhost:8080");
                 registry.addMapping("/approveStudent").allowedOrigins("http://localhost:8080");
+
             }
         };
     }

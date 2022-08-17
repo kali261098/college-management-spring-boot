@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TeaacherRepo extends JpaRepository<TeacherDetail,Integer> {
+    TeacherDetail findByEmail(String email);
 
 }

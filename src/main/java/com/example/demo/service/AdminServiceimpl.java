@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class AdminServiceimpl implements AdminService{
@@ -40,7 +39,7 @@ public class AdminServiceimpl implements AdminService{
         teacher.setGender(addTeacherRequest.getGender());
         teacher.setDegree(addTeacherRequest.getDegree());
         teacher.setExp(addTeacherRequest.getExp());
-        teacher.setSpc(addTeacherRequest.getSpe());
+        teacher.setSpc(addTeacherRequest.getSpc());
         teaacherRepo.save(teacher);
        User user= createUserCredentials("teacher",addTeacherRequest.getEmail());
         EmailDetails email=new EmailDetails();

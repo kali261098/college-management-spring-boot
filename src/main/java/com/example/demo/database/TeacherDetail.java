@@ -32,7 +32,7 @@ public class TeacherDetail {
     private String degree;
     @Column(name= "experience")
     private String exp;
-    @Column(name= "Specilization")
+    @Column(name= "subject")
     private String spc;
 
 

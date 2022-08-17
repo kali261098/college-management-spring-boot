@@ -16,5 +16,5 @@ public class AddTeacherRequest {
     private String address;
     private String degree;
     private String exp;
-    private String spe;
+    private String spc;
 }
