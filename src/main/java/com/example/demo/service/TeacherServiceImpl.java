@@ -206,10 +206,11 @@ public class TeacherServiceImpl implements TeacherService{
         UnitTestMark unitTestMark = null;
         AssignmentMark assignmentMark = null;
         SemesterMark semesterMark = null;
+        System.out.println(subject);
         if(!ObjectUtils.isEmpty(subjectDetail)) {
-            unitTestMark = unitTestRepo.findBySubjectNameAndStudentEmail(subjectDetail.getSubjectCode(),email);
-            assignmentMark = assignmentMarkRepo.findBySubjectNameAndStudentEmail(subjectDetail.getSubjectCode(),email);
-            semesterMark = semesterMarkRepo.findBySubjectNameAndStudentEmail(subjectDetail.getSubjectCode(),email);
+            unitTestMark = unitTestRepo.findBySubjectNameAndStudentEmail(subject,email);
+            assignmentMark = assignmentMarkRepo.findBySubjectNameAndStudentEmail(subject,email);
+            semesterMark = semesterMarkRepo.findBySubjectNameAndStudentEmail(subject,email);
         }
         if(!ObjectUtils.isEmpty(subjectDetail) && !ObjectUtils.isEmpty(unitTestMark) && !ObjectUtils.isEmpty(assignmentMark) && !ObjectUtils.isEmpty(semesterMark)) {
             ViewStudentMarkDto viewStudentMarkDto = new ViewStudentMarkDto();
@@ -248,6 +249,7 @@ public class TeacherServiceImpl implements TeacherService{
 
         viewStudentMarkDto.setInternal("-");
         viewStudentMarkDto.setExternal("-");
+        viewStudentMarkDto.setTotal("-");
         viewStudentMarkDto.setGrade("-");
         return viewStudentMarkDto;
 
