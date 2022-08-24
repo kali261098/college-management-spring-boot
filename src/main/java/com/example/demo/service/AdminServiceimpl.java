@@ -42,11 +42,11 @@ public class AdminServiceimpl implements AdminService{
         teacher.setSpc(addTeacherRequest.getSpc());
         teaacherRepo.save(teacher);
        User user= createUserCredentials("teacher",addTeacherRequest.getEmail());
-        EmailDetails email=new EmailDetails();
-        email.setRecipient(addTeacherRequest.getEmail());
-        email.setSubject("congratulation");
-        email.setMsgBody("your password is"+user.getPassword());
-        emailService.sendSimpleMail(email);
+//        EmailDetails email=new EmailDetails();
+//        email.setRecipient(addTeacherRequest.getEmail());
+//        email.setSubject("congratulation");
+//        email.setMsgBody("your password is"+user.getPassword());
+//        emailService.sendSimpleMail(email);
         return null;
     }
 
@@ -77,11 +77,11 @@ public class AdminServiceimpl implements AdminService{
         admissionDetail.setIsapprove(true);
         admissionRepo.save(admissionDetail);
         User user=createUserCredentials("student",email);
-        EmailDetails emailDetails=new EmailDetails();
-        emailDetails.setRecipient(email);
-        emailDetails.setSubject("congratulation your select for thi course");
-        emailDetails.setMsgBody("your password is"+user.getPassword());
-        emailService.sendSimpleMail(emailDetails);
+//        EmailDetails emailDetails=new EmailDetails();
+//        emailDetails.setRecipient(email);
+//        emailDetails.setSubject("congratulation your select for thi course");
+//        emailDetails.setMsgBody("your password is"+user.getPassword());
+//        emailService.sendSimpleMail(emailDetails);
 
     }
 
