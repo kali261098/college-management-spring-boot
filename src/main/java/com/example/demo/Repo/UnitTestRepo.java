@@ -11,4 +11,6 @@ public interface UnitTestRepo extends JpaRepository<UnitTestMark,Integer> {
     List<UnitTestMark> findBySubjectName(String subjectCode);
 
     UnitTestMark findBySubjectNameAndStudentEmailAndStudentName(String scode,String email,String name);
+
+    UnitTestMark findBySubjectNameAndStudentEmail(String scode,String email);
 }

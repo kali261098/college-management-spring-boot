@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
@@ -42,6 +43,16 @@ public class SubjectController {
         System.out.println("Get Subject request");
         List<AddSubjectRequest> addSubjectRequestList = subjectService.getSubject();
         return new ResponseEntity<>(addSubjectRequestList,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/getSubjectList")
+    public ResponseEntity<List<String>> getSubjectList() {
+        System.out.println("Get Subject request");
+        List<AddSubjectRequest> addSubjectRequestList = subjectService.getSubject();
+        List<String> subjectList = new ArrayList<>();
+        addSubjectRequestList.forEach(addSubjectRequest -> subjectList.add(addSubjectRequest.getSubjectName()));
+        return new ResponseEntity<>(subjectList,HttpStatus.OK);
 
     }
 

@@ -9,4 +9,6 @@ public interface SubjectRepo  extends JpaRepository<SubjectDetail,Integer> {
     SubjectDetail findBySubjectCodeOrSubjectName(String subjectCode,String subjectName);
 
     SubjectDetail findBySubjectCode(String subjectCode);
+
+    SubjectDetail findBySubjectName(String subjectName);
 }
