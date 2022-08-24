@@ -228,6 +228,7 @@ public class TeacherServiceImpl implements TeacherService{
             Integer internal = tut + aut;
             viewStudentMarkDto.setInternal(String.valueOf(internal));
             viewStudentMarkDto.setExternal(String.valueOf(semesterMark.getMark()));
+            viewStudentMarkDto.setTotal(String.valueOf(internal+semesterMark.getMark()));
             Integer grade = (internal+semesterMark.getMark())/10;
             viewStudentMarkDto.setGrade(String.valueOf(grade));
             return viewStudentMarkDto;
