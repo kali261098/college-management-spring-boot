@@ -6,6 +6,7 @@ import com.example.demo.dto.AttendanceRequest;
 import com.example.demo.dto.SemesterMarkDetail;
 import com.example.demo.service.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,7 +29,8 @@ public class AtteanceController {
     return new ResponseEntity<>(HttpStatus.OK);
 }
     @GetMapping("/viewAttedance")
-    public ResponseEntity<List<AttendanceDaily>> viewAttedance(@RequestParam String email,@RequestParam Date date) {
+    public ResponseEntity<List<AttendanceDaily>> viewAttedance(@RequestParam String email,
+                                                               @RequestParam @DateTimeFormat(pattern="yyyy-MM-dd") Date date) {
         System.out.println(email);
         System.out.println(date);
         List<AttendanceDaily> attendanceDailyList = attedanceService.viewAttendance(email,date);
