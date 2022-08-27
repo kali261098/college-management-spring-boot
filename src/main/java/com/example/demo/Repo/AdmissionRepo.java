@@ -11,6 +11,7 @@ import java.util.List;
 public interface AdmissionRepo  extends JpaRepository<AdmissionDetail,Integer> {
     //select all from admission detail table ;
     List<AdmissionDetail> findAll();
+    // select * from admission detail wher email="input";
     AdmissionDetail findByEmail(String email);
     List<AdmissionDetail> findByIsapprove(Boolean approve);
 }
