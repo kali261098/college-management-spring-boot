@@ -155,9 +155,22 @@ public class TeacherServiceImpl implements TeacherService{
 
     @Override
     public List<SemesterMarkDetail> viewSemesterMark(String email) {
+        List<SemesterMarkDetail> semesterMarkDetails = new ArrayList<>();
+        if(ObjectUtils.isEmpty(email)){
+            List<AdmissionDetail> admissionDetailList = admissionRepo.findByIsapprove(true);
+            admissionDetailList.forEach(admissionDetail -> {
+                SemesterMarkDetail semesterMarkDetail = new SemesterMarkDetail();
+                semesterMarkDetail.setName(admissionDetail.getName());
+                semesterMarkDetail.setEmail(admissionDetail.getEmail());
+                semesterMarkDetail.setMark(0);
+                semesterMarkDetails.add(semesterMarkDetail);
+            });
+            return semesterMarkDetails;
+
+        }
         TeacherDetail teacherDetail = teaacherRepo.findByEmail(email);
         List<SemesterMark> semesterMarkList = semesterMarkRepo.findBySubjectName(teacherDetail.getSpc());
-        List<SemesterMarkDetail> semesterMarkDetails = new ArrayList<>();
+
         if(!ObjectUtils.isEmpty(semesterMarkList)) {
             semesterMarkList.forEach(
                     semesterMark -> {

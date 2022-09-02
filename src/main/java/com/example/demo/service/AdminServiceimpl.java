@@ -41,12 +41,12 @@ public class AdminServiceimpl implements AdminService{
         teacher.setExp(addTeacherRequest.getExp());
         teacher.setSpc(addTeacherRequest.getSpc());
         teaacherRepo.save(teacher);
-       User user= createUserCredentials("teacher",addTeacherRequest.getEmail());
-//        EmailDetails email=new EmailDetails();
-//        email.setRecipient(addTeacherRequest.getEmail());
-//        email.setSubject("congratulation");
-//        email.setMsgBody("your password is"+user.getPassword());
-//        emailService.sendSimpleMail(email);
+       User user= createUserCredentials("teacher",addTeacherRequest.getEmail(),addTeacherRequest.getPhone());
+       EmailDetails email=new EmailDetails();
+       email.setRecipient(addTeacherRequest.getEmail());
+        email.setSubject("congratulation");
+        email.setMsgBody("your password is"+user.getPassword());
+       emailService.sendSimpleMail(email);
         return null;
     }
 
@@ -76,7 +76,7 @@ public class AdminServiceimpl implements AdminService{
         AdmissionDetail admissionDetail=admissionRepo.findByEmail(email);
         admissionDetail.setIsapprove(true);
         admissionRepo.save(admissionDetail);
-        User user=createUserCredentials("student",email);
+        User user=createUserCredentials("student",email, admissionDetail.getPhone());
 //        EmailDetails emailDetails=new EmailDetails();
 //        emailDetails.setRecipient(email);
 //        emailDetails.setSubject("congratulation your select for thi course");
@@ -85,11 +85,11 @@ public class AdminServiceimpl implements AdminService{
 
     }
 
-    public User createUserCredentials(String role, String email){
+    public User createUserCredentials(String role, String email,String phone){
         User user=new User();
         user.setEmail(email);
         user.setRole(role);
-        user.setPassword(password());
+        user.setPassword(phone);
         userRepo.save(user);
         return user;
     }
