@@ -8,9 +8,11 @@ import com.example.demo.database.TeacherDetail;
 import com.example.demo.database.User;
 import com.example.demo.dto.AddTeacherRequest;
 import com.example.demo.dto.EmailDetails;
+import com.example.demo.dto.TeacherResponse;
 import com.example.demo.dto.ViewStudentsResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,10 @@ public class AdminServiceimpl implements AdminService{
 
     @Override
     public Boolean addTeacher(AddTeacherRequest addTeacherRequest) {
-        TeacherDetail teacher =new TeacherDetail();
+        TeacherDetail teacher =teaacherRepo.findByEmail(addTeacherRequest.getEmail());
+        if(ObjectUtils.isEmpty(teacher)){
+            teacher = new TeacherDetail();
+        }
         teacher.setName(addTeacherRequest.getName());
         teacher.setDob(addTeacherRequest.getDob());
         teacher.setEmail(addTeacherRequest.getEmail());
@@ -42,11 +47,6 @@ public class AdminServiceimpl implements AdminService{
         teacher.setSpc(addTeacherRequest.getSpc());
         teaacherRepo.save(teacher);
        User user= createUserCredentials("teacher",addTeacherRequest.getEmail(),addTeacherRequest.getPhone());
-       EmailDetails email=new EmailDetails();
-       email.setRecipient(addTeacherRequest.getEmail());
-        email.setSubject("congratulation");
-        email.setMsgBody("your password is"+user.getPassword());
-       emailService.sendSimpleMail(email);
         return null;
     }
 
@@ -83,6 +83,32 @@ public class AdminServiceimpl implements AdminService{
 //        emailDetails.setMsgBody("your password is"+user.getPassword());
 //        emailService.sendSimpleMail(emailDetails);
 
+    }
+
+    @Override
+    public void deleteTeacher(String email) {
+        TeacherDetail teacherDetail = teaacherRepo.findByEmail(email);
+        teaacherRepo.delete(teacherDetail);
+        List<User> user = userRepo.findByEmail(email);
+        userRepo.delete(user.get(0));
+    }
+
+    @Override
+    public List<TeacherResponse> getTeacher() {
+        List<TeacherResponse> teacherResponses = new ArrayList<>();
+        List<TeacherDetail> teacherDetailList = teaacherRepo.findAll();
+        if(!ObjectUtils.isEmpty(teacherDetailList)){
+            teacherDetailList.forEach(teacherDetail -> {
+                TeacherResponse teacherResponse = new TeacherResponse();
+                teacherResponse.setSubject(teacherDetail.getSpc());
+                teacherResponse.setName(teacherDetail.getName());
+                teacherResponse.setEmail(teacherDetail.getEmail());
+                teacherResponse.setPhone(teacherDetail.getPhone());
+                teacherResponse.setDegree(teacherDetail.getDegree());
+                teacherResponses.add(teacherResponse);
+            });
+        }
+        return teacherResponses;
     }
 
     public User createUserCredentials(String role, String email,String phone){
