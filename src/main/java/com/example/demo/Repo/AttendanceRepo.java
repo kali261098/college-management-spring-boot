@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface AttendanceRepo extends JpaRepository<Attendance,Integer> {
   // select * from attendace where name="input" and email="input" and subject_name="input";
-    Attendance findBySubjectNameAndStudentEmailAndStudentName(String spc, String email, String name);
+    Attendance findBySubjectNameAndStudentEmailAndDate(String spc, String email, Date date);
 
   List<Attendance> findBySubjectNameAndDate(String spc, Date date);
+
+  List<Attendance> findByStudentEmailAndSubjectName(String email,String subject);
 }

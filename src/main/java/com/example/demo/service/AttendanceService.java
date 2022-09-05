@@ -10,6 +10,7 @@ import com.example.demo.database.TeacherDetail;
 import com.example.demo.dto.AttendanceDaily;
 import com.example.demo.dto.AttendanceRequest;
 import com.example.demo.dto.SemesterMarkDetail;
+import com.example.demo.dto.StudentAttendance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -30,10 +31,10 @@ TeaacherRepo teacherRepo;
     public void attendance(AttendanceRequest attendanceRequest) {
         TeacherDetail teacherDetail = teacherRepo.findByEmail(attendanceRequest.getTeacherEmail());
         attendanceRequest.getAttendanceDailyList().forEach(attendanceDaily -> {
-            Attendance attendance = attendanceRepo.findBySubjectNameAndStudentEmailAndStudentName(
+            Attendance attendance = attendanceRepo.findBySubjectNameAndStudentEmailAndDate(
                     teacherDetail.getSpc(),
                     attendanceDaily.getEmail(),
-                    attendanceDaily.getName());
+                    attendanceRequest.getDate());
 
             if(ObjectUtils.isEmpty(attendance)) {
                 attendance = new Attendance();
@@ -73,5 +74,33 @@ TeaacherRepo teacherRepo;
             });
             return attendanceDailyList;
         }
+    }
+
+    public StudentAttendance studentAttendance(String email, String subject) {
+        List<Attendance> attendanceList = attendanceRepo.findByStudentEmailAndSubjectName(email,subject);
+        StudentAttendance studentAttendances = new StudentAttendance();
+        int present=0;
+        int absent = 0;
+        List<Date> absentList = new ArrayList<>();
+        if(!ObjectUtils.isEmpty(attendanceList)) {
+            for (Attendance attendance :attendanceList ) {
+                if(attendance.isAttendanceStatus()){
+                    present=present+1;
+                }else {
+                    absentList.add(attendance.getDate());
+                }
+
+            }
+            absent = attendanceList.size()-present;
+        }
+        int total = present+absent;
+        int percentage = present*100/total;
+        studentAttendances.setAbsent(absent);
+        studentAttendances.setPercentage(percentage);
+        studentAttendances.setPresent(present);
+        studentAttendances.setTotal(total);
+        studentAttendances.setAbsentList(absentList);
+        return studentAttendances;
+
     }
 }
