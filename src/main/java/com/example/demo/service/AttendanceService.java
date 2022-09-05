@@ -94,7 +94,11 @@ TeaacherRepo teacherRepo;
             absent = attendanceList.size()-present;
         }
         int total = present+absent;
-        int percentage = present*100/total;
+        int percentage=0;
+        if(total!=0){
+            percentage = present*100/total;
+        }
+
         studentAttendances.setAbsent(absent);
         studentAttendances.setPercentage(percentage);
         studentAttendances.setPresent(present);

@@ -18,4 +18,8 @@ public class TeacherResponse {
     private String email;
     private String degree;
     private String subject;
+    private String dob;
+    private String gender;
+    private String address;
+    private String exp;
 }

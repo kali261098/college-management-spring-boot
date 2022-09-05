@@ -105,6 +105,10 @@ public class AdminServiceimpl implements AdminService{
                 teacherResponse.setEmail(teacherDetail.getEmail());
                 teacherResponse.setPhone(teacherDetail.getPhone());
                 teacherResponse.setDegree(teacherDetail.getDegree());
+                teacherResponse.setGender(teacherDetail.getGender());
+                teacherResponse.setAddress(teacherDetail.getAddress());
+                teacherResponse.setDob(teacherDetail.getDob());
+                teacherResponse.setExp(teacherDetail.getExp());
                 teacherResponses.add(teacherResponse);
             });
         }
